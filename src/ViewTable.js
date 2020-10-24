@@ -6,9 +6,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Spinner from 'react-bootstrap/Spinner'
 
-
 export default function ViewTable() {
-
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -43,26 +41,25 @@ export default function ViewTable() {
 
             {isLoading ? <Spinner animation='border' role="status"/> :
 
-            <Table bordered hover>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Body</th>
-                </tr>
-                </thead>
-                <tbody>
-                {renderTableBody()}
-                </tbody>
-            </Table>
+                <Table bordered hover>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Body</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {renderTableBody()}
+                    </tbody>
+                </Table>
             }
-
         </section>
     );
 
     function renderTableBody() {
         return data.map((post, index) => {
-            const {id, title, userId, body} = post //destructuring
+            const {id, title, body} = post //destructuring
             return (
                 <tr key={id}>
                     <td>{id}</td>
@@ -90,7 +87,8 @@ export default function ViewTable() {
     async function getData() {
         setIsLoading(true);
         try {
-            let response = await fetch('https://jsonplaceholder.typicode.com/posts?_page=' + currentPage + '&_limit=' + pageSize);
+            let response = await fetch('https://jsonplaceholder.typicode.com/posts?_page=' + currentPage
+                + '&_limit=' + pageSize);
             let json = await response.json();
             if (json.length > 0) {
                 json.forEach(x => {
@@ -101,7 +99,7 @@ export default function ViewTable() {
                 );
                 setData(json);
             } else {
-                setCurrentPage(currentPage-1);
+                setCurrentPage(currentPage - 1);
             }
         } catch (error) {
             console.log(error);
