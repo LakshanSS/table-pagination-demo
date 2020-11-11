@@ -12,7 +12,6 @@ export default function ViewTable() {
     const [pageSize, setPageSize] = useState(10);
     const [isLoading, setIsLoading] = useState(false);
 
-
     useEffect(() => {
             getData();
         }, [pageSize, currentPage]
